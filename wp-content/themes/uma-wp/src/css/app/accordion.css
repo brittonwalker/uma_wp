@@ -1,0 +1,32 @@
+.accordion {
+  .accordion__item {
+    @apply bg-white border border-gray-200 overflow-hidden;
+    &:not(:first-of-type) {
+      @apply border-t-0;
+    }
+  }
+  .accordion__header {
+    @apply mb-0;
+  }
+  .accordion__button {
+    @apply relative flex items-center justify-between w-full py-4 px-5 text-base text-gray-800 text-left bg-white border-0 rounded-none focus:outline-none;
+    svg {
+      @apply transition-transform duration-300;
+    }
+    &[aria-expanded='true'] {
+      svg {
+        @apply transform -rotate-180;
+      }
+    }
+  }
+  .accordion__collapse {
+    transition: max-height 0.3s ease-in-out;
+    max-height: 0;
+    &.collapsed {
+      max-height: 0;
+    }
+  }
+  .accordion__body {
+    @apply py-4 px-5;
+  }
+}

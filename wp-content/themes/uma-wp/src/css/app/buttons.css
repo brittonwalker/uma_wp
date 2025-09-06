@@ -1,0 +1,9 @@
+.btn {
+  @apply inline-flex items-center justify-center px-3 py-2.5 bg-[#28C76F] text-black;
+  &.btn--dark {
+    @apply text-white bg-black hover:bg-gray-800;
+  }
+  &.btn--light {
+    @apply text-black bg-gray-200 hover:bg-gray-100;
+  }
+}

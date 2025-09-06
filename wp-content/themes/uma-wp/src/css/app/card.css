@@ -1,0 +1,41 @@
+.cards {
+  @apply my-20 overflow-hidden;
+
+  .swiper {
+    overflow: visible;
+    @apply container-wide;
+  }
+
+  .cards-container {
+    @apply grid grid-cols-3 gap-5;
+  }
+
+  &__header {
+    @apply text-center mb-10;
+  }
+
+  &__pagination {
+    @apply mt-5 lg:mt-16 flex justify-center gap-4 lg:hidden;
+  }
+
+  .swiper-pagination-bullet {
+    @apply bg-secondary opacity-100;
+
+    &.swiper-pagination-bullet-active {
+      @apply bg-highlight;
+    }
+  }
+}
+
+.card {
+  aspect-ratio: 447/598;
+  @apply rounded-2xl bg-white relative overflow-hidden;
+
+  .card-info {
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(5px);
+
+    @apply absolute bottom-0 left-0 right-0;
+    @apply rounded-2xl px-6 py-5 mb-3 mx-2;
+  }
+}

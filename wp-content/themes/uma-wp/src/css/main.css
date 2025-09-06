@@ -1,0 +1,40 @@
+/* Tailwind Styles */
+@import "tailwindcss";
+
+/* Vendor */
+@import "lenis/dist/lenis.css";
+@import "prismjs/themes/prism.min.css";
+@import "prismjs/themes/prism-okaidia.min.css";
+
+@import "./app/_theme";
+@import "./app/_components";
+@import "./app/_utilities";
+
+/* Typography */
+@import "./app/typography";
+@import "./app/header";
+@import "./app/content";
+@import "./app/footer";
+@import "./app/page-transition";
+@import "./app/buttons";
+@import "./app/card";
+@import "./app/landing-hero";
+@import "./app/cta";
+@import "./app/testimonials";
+
+body {
+  @apply bg-black text-white;
+}
+
+form {
+  @apply flex flex-col gap-6 lg:w-[300px] max-w-full;
+}
+
+.form-field {
+  label {
+    @apply block font-medium text-sm mb-2 text-white;
+  }
+  input {
+    @apply bg-white rounded-lg border-[#CCCCCC] py-2 px-3 text-black w-full lg:w-[300px] text-lg;
+  }
+}

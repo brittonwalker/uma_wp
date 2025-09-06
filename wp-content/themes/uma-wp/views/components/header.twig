@@ -1,0 +1,49 @@
+<div id="progress-bar"></div>
+
+<header class="header headroom" role="banner">
+	<div class="container">
+		<div class="header__wrapper">
+      <a class="header__logo no-underline!" href="{{ site.url }}" rel="home" aria-label="{{ site.name }}">
+				{% include "svg/logo.twig" %}
+      </a>
+			<nav id="nav-main" class="header__nav" role="navigation" aria-label="Primary Navigation">
+				{% if primary %}
+					<ul class="header__nav-list">
+					{% for item in primary.get_items %}
+						<li class="{{ item.classes | join(' ') }}">
+							<a class="header__nav-link" target="{{ item.target }}" href="{{ item.link }}">{{ item.title }}</a>
+						</li>
+					{% endfor %}
+					</ul>
+				{% endif %}
+				{% include "menu.twig" with {'items': primary.get_items} %}
+        <div class="flex flex-col text-[10px] lg:text-sm gap-1">
+					<span>Unlimited Martial Arts</span>	
+					<span>505 Union Ave, Brooklyn, NY 11211</span>
+					<a class="header__phone" href="tel:718-218-7515">718-218-7515</a>
+					<a class="header__email" href="mailto:uma@gmail.com">uma@gmail.com</a>
+				</div>
+			</nav><!-- #nav -->
+		</div>
+	</div>
+</header>
+
+<div class="menu" id="menu-content" aria-hidden="true">
+	<div class="menu__inner">
+    <div class="menu__logo">
+			{% include "svg/logo.twig" %}
+    </div>
+		<ul>
+		{% for item in secondary.get_items %}
+			<li class="{{ item.classes | join(' ') }}">
+				<a class="mobile-nav-item" target="{{ item.target }}" href="{{ item.link }}">{{ item.title }}</a>
+			</li>
+		{% endfor %}
+		</ul>
+    <div class="menu__close">
+			<button class="menu__close-button" aria-label="Close menu">
+				Close
+			</button>
+		</div>
+	</div>
+</div>

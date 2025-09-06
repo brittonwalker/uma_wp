@@ -1,0 +1,18 @@
+<div class="landing-hero relative text-sm" data-component="landing-hero">
+  <div class="landing-hero__bg" style="background-image: url('{{ bg_image }}');"></div>
+  <div class="landing-hero__content">
+    <div class="landing-hero__left">
+      <h1 class="heading-display leading-[120%] font-heading uppercase font-bold">
+        {{ title }}
+      </h1>
+      <p class="text-2xl mt-2 mb-5">{{ subtitle }}</p>
+      <p class="text-secondary mt-12 mb-5">{{ text }}</p>
+      {% include 'components/form/index.twig' %}
+    </div>
+    <div class="landing-hero__image">
+      <div class="landing-hero__image-wrapper">
+        <img src="{{ theme.link }}/assets/images/bjj-hero.png" alt="Landing Hero" />
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+.cta {
+  @apply my-20 lg:my-52;
+
+  &__container {
+    @apply container flex flex-col gap-5 lg:flex-row lg:gap-36;
+  }
+
+  &__left {
+    --desktop-width: calc(590 / 1172 * 100%);
+    @apply w-full lg:w-[var(--desktop-width)];
+  }
+
+  &__right {
+    @apply lg:flex-1 lg:flex;
+  }
+}

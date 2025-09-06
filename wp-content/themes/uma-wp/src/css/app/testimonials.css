@@ -1,0 +1,15 @@
+.testimonials {
+  @apply my-24;
+
+  &__pagination {
+    @apply mt-8 lg:mt-16 flex justify-center gap-4;
+  }
+
+  .swiper-pagination-bullet {
+    @apply bg-secondary opacity-100;
+
+    &.swiper-pagination-bullet-active {
+      @apply bg-highlight;
+    }
+  }
+}
