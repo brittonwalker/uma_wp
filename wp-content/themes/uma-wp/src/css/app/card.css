@@ -10,11 +10,11 @@
     @apply grid grid-cols-3 gap-5;
   }
 
-  &__header {
+  .cards__header {
     @apply text-center mb-10;
   }
 
-  &__pagination {
+  .cards__pagination {
     @apply mt-5 lg:mt-16 flex justify-center gap-4 lg:hidden;
   }
 

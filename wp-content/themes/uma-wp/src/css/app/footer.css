@@ -1,15 +1,15 @@
 .site-footer {
   @apply bg-black text-white pb-12 mt-12 text-xs;
 
-  &__grid {
+  .site-footer__grid {
     @apply grid lg:grid-cols-2 lg:gap-12 mb-8;
   }
 
-  &__container {
+  .site-footer__container {
     @apply pt-5 border-t text-secondary container;
   }
 
-  &__left {
+  .site-footer__left {
     @apply flex flex-col lg:flex-row gap-10;
   }
 }

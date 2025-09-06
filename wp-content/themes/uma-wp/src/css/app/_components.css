@@ -11,13 +11,13 @@
 
   .card {
     @apply w-full !no-underline;
-    & &__image-wrapper {
+    .card__image-wrapper {
       @apply w-full aspect-[576/383] bg-gray-300;
     }
-    & &__image {
+    .card__image {
       @apply w-full h-full object-cover object-center;
     }
-    & &__content {
+    .card__content {
       @apply mt-4 space-y-3;
     }
   }

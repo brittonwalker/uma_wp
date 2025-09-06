@@ -1,7 +1,7 @@
 .testimonials {
   @apply my-24;
 
-  &__pagination {
+  .testimonials__pagination {
     @apply mt-8 lg:mt-16 flex justify-center gap-4;
   }
 
