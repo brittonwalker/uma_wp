@@ -1,0 +1,73 @@
+name: Deploy WordPress to Namecheap
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: # Allows manual trigger
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          tools: composer
+          coverage: none
+
+      - name: Install npm dependencies (theme)
+        run: |
+          cd wp-content/themes/uma-wp
+          npm ci
+
+      - name: Install Composer dependencies (theme)
+        run: |
+          cd wp-content/themes/uma-wp
+          composer install --no-dev --optimize-autoloader
+
+      - name: Build assets (theme)
+        run: |
+          cd wp-content/themes/uma-wp
+          npm run build
+
+      - name: Deploy to Namecheap via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: /uma.brittonwalker.site/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/vendor/bin/**
+            **/vendor/**/test*/**
+            **/vendor/**/Test*/**
+            .github/
+            README.md
+            .gitignore
+            package*.json
+            composer.json
+            composer.lock
+            *.log
+            .env*
+            .DS_Store
+            **/.sass-cache/**
+            **/src/**
+            **/scss/**
+            **/*.scss
+            **/*.ts
+            webpack.config.js
+            gulpfile.js
