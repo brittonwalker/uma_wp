@@ -5,6 +5,7 @@
 wp-*.php
 xmlrpc.php
 index.php
+!/wp-content/themes/uma-wp/index.php
 license.txt
 readme.html
 
