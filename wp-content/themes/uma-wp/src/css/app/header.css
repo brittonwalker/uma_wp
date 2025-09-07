@@ -11,7 +11,7 @@
 .headroom {
   will-change: transform;
   transition: transform 200ms linear;
-  @apply fixed w-full py-8 bg-transparent text-white mix-blend-difference z-20 top-0;
+  @apply fixed w-full py-8 bg-transparent text-white z-20 top-0 bg-green-500;
 
   &.headroom--pinned {
     transform: translateY(0%);

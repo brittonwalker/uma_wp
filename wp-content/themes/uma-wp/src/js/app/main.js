@@ -2,7 +2,7 @@ import EventBus from './core/EventBus.js';
 import { Testimonials } from './components/Testimonials.js';
 import { CardsSection } from './components/CardsSection.js';
 import { PerformanceManager } from './utils/Performance.js';
-// import { HeroSection } from './components/HeroSection.js';
+import { HeroSection } from './components/HeroSection.js';
 // import ApiService from './services/ApiService.js';
 
 class App {
@@ -52,6 +52,7 @@ class App {
     // Auto-initialize components based on data attributes
     const componentMap = {
       // 'hero-section': HeroSection,
+      'landing-hero': HeroSection,
       testimonials: Testimonials,
       'cards-section': CardsSection,
       // Add more components as needed

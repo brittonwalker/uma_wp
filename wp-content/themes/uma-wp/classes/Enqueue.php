@@ -120,15 +120,15 @@ class Enqueue {
             // But we should still check if there's a built CSS file as fallback
             // This handles the case where wp-scripts might still extract CSS
             
-            // $css_file = get_template_directory() . '/build/index.css';
-            // if ( ! file_exists( $css_file ) ) {
-            //     // No CSS file means it's being injected by webpack (style-loader)
-            //     return;
-            // }
+            $css_file = get_template_directory() . '/build/index.css';
+            if ( ! file_exists( $css_file ) ) {
+                // No CSS file means it's being injected by webpack (style-loader)
+                return;
+            }
             
-            // // If CSS file exists but HMR is active, still skip it
-            // // because style-loader will inject updated styles
-            // return;
+            // If CSS file exists but HMR is active, still skip it
+            // because style-loader will inject updated styles
+            return;
 
                     wp_enqueue_style(
             $this->namespace,

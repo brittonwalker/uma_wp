@@ -1,10 +1,12 @@
+import { gsap } from 'gsap';
+
 import { Component } from '../core/Component.js';
 import EventBus from '../core/EventBus.js';
 
 export class HeroSection extends Component {
   get defaultOptions() {
     return {
-      animationDuration: 300,
+      animationDuration: 1000,
       lazyLoad: true,
     };
   }
@@ -57,7 +59,43 @@ export class HeroSection extends Component {
   }
 
   animateIn() {
-    this.element.classList.add('hero--animated');
+    const leftContent = Array.from(this.element.querySelector('.landing-hero__left').children);
+    const form = leftContent.pop();
+    if (form) leftContent.push(form.children);
+
+    const image = this.element.querySelector('.landing-hero__image');
+    const tl = gsap.timeline({
+      defaults: {
+        duration: this.options.animationDuration / 1000,
+        ease: 'power2.out',
+        delay: 0.6,
+      },
+      onComplete() {
+        this.kill();
+      },
+    });
+
+    tl.fromTo(
+      leftContent,
+      { opacity: 0, y: 50 },
+      {
+        opacity: 1,
+        y: 0,
+        ease: 'power2.out',
+        stagger: 0.1,
+      }
+    );
+    tl.fromTo(
+      image,
+      { opacity: 0, y: 50 },
+      {
+        opacity: 1,
+        y: 0,
+        ease: 'power2.out',
+        delay: 0.2,
+      },
+      '-=1'
+    );
   }
 
   scrollToSection(selector) {
