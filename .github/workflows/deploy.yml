@@ -53,22 +53,9 @@ jobs:
             **/.git*
             **/.git*/**
             **/node_modules/**
-            **/vendor/bin/**
-            **/vendor/**/test*/**
-            **/vendor/**/Test*/**
             .github/
             README.md
             .gitignore
-            package*.json
-            composer.json
-            composer.lock
             *.log
             .env*
             .DS_Store
-            **/.sass-cache/**
-            **/src/**
-            **/scss/**
-            **/*.scss
-            **/*.ts
-            webpack.config.js
-            gulpfile.js
