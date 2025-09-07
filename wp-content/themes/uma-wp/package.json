@@ -23,6 +23,7 @@
   "main": "index.js",
   "dependencies": {
     "@barba/core": "^2.10.3",
+    "@studio-freight/lenis": "^1.0.42",
     "@tailwindcss/postcss": "^4.1.13",
     "gsap": "^3.12.7",
     "headroom.js": "^0.12.0",

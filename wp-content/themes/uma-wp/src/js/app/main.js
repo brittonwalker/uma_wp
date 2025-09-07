@@ -3,6 +3,8 @@ import { Testimonials } from './components/Testimonials.js';
 import { CardsSection } from './components/CardsSection.js';
 import { PerformanceManager } from './utils/Performance.js';
 import { HeroSection } from './components/HeroSection.js';
+import ScrollManager from './core/ScrollManager.js';
+
 // import ApiService from './services/ApiService.js';
 
 class App {
@@ -25,6 +27,7 @@ class App {
   }
 
   bootstrap() {
+    ScrollManager.init();
     this.setupGlobalEvents();
     this.initializeComponents();
     this.setupAnalytics();
@@ -83,10 +86,24 @@ class App {
   }
 
   handleResize() {
+    ScrollManager.refresh();
+
     EventBus.emit('viewport:resize', {
       width: window.innerWidth,
       height: window.innerHeight,
     });
+  }
+
+  disableScroll() {
+    ScrollManager.disable();
+  }
+
+  enableScroll() {
+    ScrollManager.enable();
+  }
+
+  scrollToElement(selector, options = {}) {
+    ScrollManager.scrollTo(selector, options);
   }
 
   handleFormSubmit(data) {
