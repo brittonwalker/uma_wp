@@ -24,12 +24,12 @@ wp-config-sample.php
 /wp-content/backups/
 
 # Plugins (exclude if you want to track them)
-/wp-content/plugins/
-# Uncomment below to track specific plugins you're developing
-# !/wp-content/plugins/your-custom-plugin/
+wp-content/plugins/*
+!wp-content/plugins/uma-blocks/
 
 # Themes (exclude if you want to track them)
-/wp-content/themes/twenty*/
+wp-content/themes/*
+!wp-content/themes/uma-wp/
 # Uncomment below to track your custom theme
 # !/wp-content/themes/your-custom-theme/
 
