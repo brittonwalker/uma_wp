@@ -1,0 +1,13 @@
+{% extends "base.twig" %}
+
+{% set bg_image = theme.link ~ "/assets/images/default-hero.png" %}
+
+{% block content %}
+
+{% include "components/success-page/index.twig" with {
+  title: "You're all set!",
+  subtitle: "First Class Free!",
+  bg_image: bg_image,
+} %}
+
+{% endblock %}
