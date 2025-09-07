@@ -2,14 +2,14 @@
   <div class="landing-hero__bg" style="background-image: url('{{ bg_image }}');"></div>
   <div class="landing-hero__content">
     <div class="landing-hero__left">
-      <h1 class="heading-display leading-[120%] font-heading uppercase font-bold">
+      <h1 class="heading-display leading-[120%] font-heading uppercase font-bold opacity-0">
         {{ title }}
       </h1>
-      <p class="text-2xl mt-2 mb-5">{{ subtitle }}</p>
-      <p class="text-secondary mt-12 mb-5">{{ text }}</p>
+      <p class="text-2xl mt-2 mb-5 opacity-0">{{ subtitle }}</p>
+      <p class="text-secondary mt-12 mb-5 opacity-0">{{ text }}</p>
       {% include 'components/form/index.twig' %}
     </div>
-    <div class="landing-hero__image">
+    <div class="landing-hero__image opacity-0">
       <div class="landing-hero__image-wrapper">
         <img src="{{ theme.link }}/assets/images/bjj-hero.png" alt="Landing Hero" />
       </div>

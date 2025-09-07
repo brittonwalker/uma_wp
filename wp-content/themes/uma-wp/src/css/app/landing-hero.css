@@ -1,5 +1,30 @@
 .landing-hero {
   @apply relative pt-48 min-h-[75vh];
+
+  .landing-hero__content {
+    @apply container relative flex lg:flex-row items-start gap-12 z-10;
+  }
+
+  .landing-hero__left {
+    --desktop-width: calc(590 / 1172 * 100%);
+    @apply w-full lg:w-[var(--desktop-width)];
+  }
+
+  .landing-hero__image {
+    @apply hidden lg:block;
+    width: calc(542 / 1172 * 100%);
+  }
+
+  .landing-hero__image-wrapper {
+    aspect-ratio: 542 / 744;
+    img {
+      @apply w-full h-full object-cover object-center rounded-2xl;
+    }
+  }
+
+  form > * {
+    @apply opacity-0;
+  }
 }
 
 .landing-hero__bg {
@@ -11,26 +36,5 @@
     inset: 0;
     background: linear-gradient(to bottom, transparent 0%, #101010 85%);
     pointer-events: none;
-  }
-}
-
-.landing-hero__content {
-  @apply container relative flex lg:flex-row items-start gap-12 z-10;
-}
-
-.landing-hero__left {
-  --desktop-width: calc(590 / 1172 * 100%);
-  @apply w-full lg:w-[var(--desktop-width)];
-}
-
-.landing-hero__image {
-  @apply hidden lg:block;
-  width: calc(542 / 1172 * 100%);
-}
-
-.landing-hero__image-wrapper {
-  aspect-ratio: 542 / 744;
-  img {
-    @apply w-full h-full object-cover object-center rounded-2xl;
   }
 }

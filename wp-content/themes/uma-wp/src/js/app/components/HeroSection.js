@@ -77,7 +77,7 @@ export class HeroSection extends Component {
 
     tl.fromTo(
       leftContent,
-      { opacity: 0, y: 50 },
+      { y: 50 },
       {
         opacity: 1,
         y: 0,
@@ -87,7 +87,7 @@ export class HeroSection extends Component {
     );
     tl.fromTo(
       image,
-      { opacity: 0, y: 50 },
+      { y: 50 },
       {
         opacity: 1,
         y: 0,
