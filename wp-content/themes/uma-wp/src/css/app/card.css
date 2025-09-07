@@ -3,7 +3,10 @@
 
   .swiper {
     overflow: visible;
-    @apply container-wide;
+    @apply container-wide opacity-0;
+    &.swiper-initialized {
+      @apply opacity-100;
+    }
   }
 
   .cards-container {
