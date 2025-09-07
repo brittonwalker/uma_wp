@@ -105,8 +105,8 @@
     },
     "custom": {
       "font": {
-        "body": "var(--wp--preset--font-family--pp-writer)",
-        "heading": "var(--wp--preset--font-family--neue-montreal)"
+        "body": "SF Pro Text, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'",
+        "heading": "SF Pro Display, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'"
       },
       "fluid-scale": "((100vw - 375px) / 905)",
       "desktop": {
