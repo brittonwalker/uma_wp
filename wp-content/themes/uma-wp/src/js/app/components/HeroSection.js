@@ -75,6 +75,8 @@ export class HeroSection extends Component {
       },
     });
 
+    const imgDuration = 1.5;
+
     tl.fromTo(
       leftContent,
       { y: 50 },
@@ -93,6 +95,7 @@ export class HeroSection extends Component {
         y: 0,
         ease: 'power2.out',
         delay: 0.2,
+        duration: imgDuration,
       },
       '0'
     );
