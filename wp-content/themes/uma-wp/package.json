@@ -51,7 +51,9 @@
     "sass-loader": "^16.0.5",
     "style-loader": "^4.0.0",
     "stylelint": "^16.15.0",
-    "tailwindcss": "^4.1.13"
+    "tailwindcss": "^4.1.13",
+    "ts-loader": "^9.5.4",
+    "typescript": "^5.9.2"
   },
   "scripts": {
     "build": "wp-scripts build src/index.js",
