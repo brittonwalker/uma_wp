@@ -1,4 +1,4 @@
-import EventBus from './core/EventBus.js';
+import EventBus from './core/EventBus.ts';
 import { Testimonials } from './components/Testimonials.js';
 import { CardsSection } from './components/CardsSection.js';
 import { PerformanceManager } from './utils/Performance.js';

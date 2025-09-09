@@ -12,7 +12,7 @@ import 'swiper/css/pagination';
   Internal Dependencies
  */
 import { Component } from '../core/Component.js';
-import EventBus from '../core/EventBus.js';
+import EventBus from '../core/EventBus.ts';
 
 export class Testimonials extends Component {
   get defaultOptions() {

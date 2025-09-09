@@ -15,7 +15,7 @@ gsap.registerPlugin(ScrollTrigger);
   Internal Dependencies
  */
 import { Component } from '../core/Component.js';
-import EventBus from '../core/EventBus.js';
+import EventBus from '../core/EventBus.ts';
 
 export class CardsSection extends Component {
   get defaultOptions() {
