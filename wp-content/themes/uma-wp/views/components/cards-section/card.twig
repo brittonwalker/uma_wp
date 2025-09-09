@@ -1,8 +1,6 @@
-{% set bg_image = theme.link ~ "/assets/images/default-hero.png" %}
-
-<div class="card" style="background-image: url('{{ bg_image }}');">
+<div class="card" style="background-image: url('{{ card.bg_image }}');">
   <div class="card-info text-sm text-center ">
-    <h2 class="text-4xl font-heading font-bold mb-5">Expert Instructors</h2>
-    <p>Learn from experienced BJJ practitioners dedicated to helping you achieve your goals.</p>
+    <h2 class="text-4xl font-heading font-bold mb-5">{{ card.title }}</h2>
+    <p>{{ card.content }}</p>
   </div>
 </div>

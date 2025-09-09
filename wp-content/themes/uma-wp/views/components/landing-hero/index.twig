@@ -1,5 +1,5 @@
 <div class="landing-hero relative text-sm" data-component="landing-hero">
-  <div class="landing-hero__bg" style="background-image: url('{{ bg_image }}');"></div>
+  <div class="landing-hero__bg" style="background-image: url('{{ bg_image.src }}');"></div>
   <div class="landing-hero__content">
     <div class="landing-hero__left">
       <h1 class="heading-display leading-[120%] font-heading uppercase font-bold opacity-0">
@@ -11,7 +11,7 @@
     </div>
     <div class="landing-hero__image opacity-0">
       <div class="landing-hero__image-wrapper">
-        <img src="{{ theme.link }}/assets/images/bjj-hero.png" alt="Landing Hero" />
+        <img src="{{ image.src }}" alt="Landing Hero" />
       </div>
     </div>
   </div>

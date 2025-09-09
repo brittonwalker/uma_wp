@@ -1,27 +1,7 @@
 {% extends "base.twig" %}
 
-{% set bg_image = theme.link ~ "/assets/images/default-hero.png" %}
-
 {% block content %}
-{# Landing Hero #}
-{% include "components/landing-hero/index.twig" with {
-  title: "Your BJJ Journey Starts Now.",
-  subtitle: "First Class Free!",
-  text: "Discover a martial art that challenges your body and mind. Whether you’re looking for
-        fitness, self-defense, or a new passion, we’ll guide you every step of the way in a
-        supportive, inclusive setting.",
-  bg_image: bg_image,
-} %}
 
-{# Testimonials #}
-{% include "components/testimonials/index.twig" %}
-
-{# Cards Section #}
-{% include "components/cards-section/index.twig" %}
-
-{# Call to Action #}
-{% include "components/cta/index.twig" %}
-
-<div class="container">{{ post.content }} {# blocks render here #}</div>
+  {{ post.content }}
 
 {% endblock %}

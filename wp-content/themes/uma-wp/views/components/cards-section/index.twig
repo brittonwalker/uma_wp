@@ -1,14 +1,14 @@
 <div class="cards" data-component="cards-section">
   <div class="cards__header">
     <h2 class="heading-display font-heading font-bold mb-4 max-w-[1113px] mx-auto uppercase">
-      Why Choose Brazilian Jiu-Jitsu at Our School?
+      {{ title}}
     </h2>
   </div>
   <div class="swiper">
     <div class="swiper-wrapper">
-    {% for i in 1..3 %}
+    {% for card in cards %}
       <div class="swiper-slide">
-        {% include 'components/cards-section/card.twig' %}
+        {% include 'components/cards-section/card.twig' with { card: card } %}
       </div>
     {% endfor %}
     </div>

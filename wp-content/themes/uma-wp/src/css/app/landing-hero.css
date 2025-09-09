@@ -28,7 +28,7 @@
 }
 
 .landing-hero__bg {
-  @apply absolute inset-0 z-0 bg-cover bg-center bg-no-repeat grayscale-100 opacity-20;
+  @apply absolute inset-0 z-10 bg-cover bg-center bg-no-repeat grayscale-100 opacity-20;
 
   &::after {
     content: "";
