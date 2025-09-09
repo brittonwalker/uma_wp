@@ -1,5 +1,5 @@
 .cards {
-  @apply my-20 overflow-hidden;
+  @apply lg:my-48 my-20 overflow-hidden;
 
   .swiper {
     overflow: visible;
