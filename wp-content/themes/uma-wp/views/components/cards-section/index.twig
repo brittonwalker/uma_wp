@@ -1,8 +1,24 @@
+{% set animation_array = [300, 50, 450] %}
+
 <div class="cards" data-component="cards-section">
   <div class="cards__header">
     <h2 class="heading-display font-heading font-bold mb-4 max-w-[1113px] mx-auto uppercase text-balance">
       {{ title}}
     </h2>
+  </div>
+    <div class="desktop-cards hidden lg:block">
+    <div class="cards-container container-wide grid grid-cols-1 lg:grid-cols-3 gap-5">
+      {% for column in 0..2 %}
+        <div class="card-column-{{ column + 1 }} flex flex-col gap-5" data-card-column>
+          {# Loop through cards and display every third card starting from the current column index #}
+          {% for i in range(column, cards|length - 1, 3) %}
+            {% if cards[i] is defined %}
+              {% include 'components/cards-section/card.twig' with { card: cards[i] } %}
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endfor %}
+    </div>
   </div>
   <div class="swiper">
     <div class="swiper-wrapper">
