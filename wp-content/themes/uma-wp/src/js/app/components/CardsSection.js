@@ -136,9 +136,10 @@ export class CardsSection extends Component {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: cardContainer,
-        start: 'top 95%',
-        end: 'top 40%',
+        start: 'top 120%',
+        end: 'top 30%',
         scrub: true,
+        markers: true,
       },
     });
     tl.to(cardColumns, {
