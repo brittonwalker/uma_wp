@@ -68,7 +68,7 @@ export class HeroSection extends Component {
       defaults: {
         duration: this.options.animationDuration / 1000,
         ease: 'power2.out',
-        delay: 0.6,
+        delay: 0.3,
       },
       onComplete() {
         this.kill();
@@ -94,7 +94,7 @@ export class HeroSection extends Component {
         ease: 'power2.out',
         delay: 0.2,
       },
-      '-=1'
+      '0'
     );
   }
 
