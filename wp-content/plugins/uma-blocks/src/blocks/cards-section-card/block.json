@@ -32,6 +32,39 @@
 		"content": {
 			"type": "string",
 			"default": ""
+		},
+		"link": {
+			"type": "object",
+			"properties": {
+				"url": {
+					"type": "string",
+					"default": ""
+				},
+				"title": {
+					"type": "string",
+					"default": ""
+				},
+				"opensInNewTab": {
+					"type": "boolean",
+					"default": false
+				},
+				"type": {
+					"type": "string",
+					"default": ""
+				},
+				"kind": {
+					"type": "string",
+					"default": ""
+				}
+			},
+			"default": {
+				"url": "",
+				"title": "",
+				"opensInNewTab": false,
+				"type": "",
+				"kind": "",
+				"id": 0
+			}
 		}
 	},
 	"editorScript": "file:./index.js",

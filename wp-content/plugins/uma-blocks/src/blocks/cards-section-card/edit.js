@@ -7,7 +7,6 @@ export default function Edit(props) {
 	const { bgImage, title, content } = props.attributes;
 	const blockProps = useBlockProps();
 
-	console.log(bgImage);
 	return (
 		<>
 			<Controls {...props} />

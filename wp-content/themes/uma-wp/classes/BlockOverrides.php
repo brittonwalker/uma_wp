@@ -72,11 +72,13 @@ class BlockOverrides {
         foreach ($inner_blocks as $inner_block) {
             if ($inner_block['blockName'] === 'uma-blocks/cards-section-card') {
                 $bg_image_id = $inner_block['attrs']['bgImage']['id'] ?? null;
+                $link = $inner_block['attrs']['link'] ?? null;
                 
                 $cards[] = [
                     'title' => $inner_block['attrs']['title'] ?? '',
                     'content' => $inner_block['attrs']['content'] ?? '',
                     'bg_image' => $bg_image_id ? Timber::get_image($bg_image_id) : null,
+                    'link' => $link ? $link : null,
                 ];
             }
         }

@@ -4,11 +4,24 @@ import {
 	InspectorControls,
 	MediaUpload,
 	MediaUploadCheck,
+	__experimentalLinkControl as LinkControl,
 } from '@wordpress/block-editor';
-import { ToolbarGroup, ToolbarButton, PanelBody, PanelRow } from '@wordpress/components';
+import {
+	ToolbarGroup,
+	ToolbarButton,
+	PanelBody,
+	PanelRow,
+	Popover,
+	Button,
+} from '@wordpress/components';
+import { useState } from '@wordpress/element';
+import { link as linkIcon } from '@wordpress/icons';
 
 export default function Controls({ attributes, setAttributes }) {
-	const { bgImage } = attributes;
+	const { bgImage, link } = attributes;
+	console.log(link);
+	const [showLinkPopover, setShowLinkPopover] = useState(false);
+
 	return (
 		<>
 			<BlockControls>
@@ -24,7 +37,7 @@ export default function Controls({ attributes, setAttributes }) {
 								});
 							}}
 							allowedTypes={['image']}
-							value={bgImage.id}
+							value={bgImage?.id}
 							render={({ open }) => (
 								<ToolbarButton
 									className="components-toolbar__control"
@@ -35,6 +48,36 @@ export default function Controls({ attributes, setAttributes }) {
 							)}
 						/>
 					</MediaUploadCheck>
+					<ToolbarButton
+						icon={linkIcon}
+						label={__('Add link', 'uma-blocks')}
+						onClick={() => setShowLinkPopover(!showLinkPopover)}
+						isPressed={!!link?.url}
+					/>
+					{showLinkPopover && (
+						<Popover
+							position="bottom center"
+							onClose={() => setShowLinkPopover(false)}
+							focusOnMount={false}
+						>
+							<div style={{ padding: '16px', minWidth: '280px' }}>
+								<LinkControl
+									value={link}
+									onChange={(newLink) => {
+										console.log(newLink);
+										setAttributes({ link: newLink });
+									}}
+									onRemove={() => setAttributes({ link: {} })}
+									settings={[
+										{
+											id: 'opensInNewTab',
+											title: __('Open in new tab', 'uma-blocks'),
+										},
+									]}
+								/>
+							</div>
+						</Popover>
+					)}
 				</ToolbarGroup>
 			</BlockControls>
 			<InspectorControls className="">

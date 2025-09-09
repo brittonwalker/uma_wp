@@ -1,6 +1,16 @@
-<div class="card" style="background-image: url('{{ card.bg_image }}');">
-  <div class="card-info text-sm text-center text-balance">
-    <h2 class="text-4xl font-heading font-bold mb-5">{{ card.title }}</h2>
-    <p>{{ card.content }}</p>
+{% macro render_card_content(card) %}
+  <div class="card" style="background-image: url('{{ card.bg_image }}');">
+    <div class="card-info text-sm text-center text-balance">
+      <h2 class="text-4xl font-heading font-bold mb-5">{{ card.title }}</h2>
+      <p>{{ card.content }}</p>
+    </div>
   </div>
-</div>
+{% endmacro %}
+
+{% if card.link.url %}
+  <a href="{{ card.link.url }}" {% if card.link.opensInNewTab %}target="_blank" rel="noopener noreferrer"{% endif %} class="card-link">
+    {{ _self.render_card_content(card) }}
+  </a>
+{% else %}
+  {{ _self.render_card_content(card) }}
+{% endif %}
