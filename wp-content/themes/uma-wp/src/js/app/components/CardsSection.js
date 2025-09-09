@@ -56,7 +56,7 @@ export class CardsSection extends Component {
     this.validateElement();
     this.checkScreenSize();
     this.initSwiper();
-    // this.setupIntersectionObserver();
+    this.setupIntersectionObserver();
   }
 
   validateElement() {
@@ -138,7 +138,7 @@ export class CardsSection extends Component {
         trigger: cardContainer,
         start: 'top 95%',
         end: 'top 50%',
-        once: true,
+        scrub: true,
       },
     });
     tl.to(cardColumns, {
