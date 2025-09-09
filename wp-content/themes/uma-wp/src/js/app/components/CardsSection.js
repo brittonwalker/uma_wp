@@ -1,11 +1,15 @@
 /* 
   External Dependencies
  */
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Swiper from 'swiper';
 import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+
+gsap.registerPlugin(ScrollTrigger);
 
 /* 
   Internal Dependencies
@@ -50,7 +54,9 @@ export class CardsSection extends Component {
   init() {
     super.init();
     this.validateElement();
+    this.checkScreenSize();
     this.initSwiper();
+    // this.setupIntersectionObserver();
   }
 
   validateElement() {
@@ -70,31 +76,48 @@ export class CardsSection extends Component {
     return true;
   }
 
+  checkScreenSize() {
+    console.log('HEY NOW HEY NOW', window.innerWidth);
+
+    if (window.innerWidth < 640) {
+      this.initSwiper();
+    } else {
+      this.destroySwiper();
+    }
+  }
+
   initSwiper() {
-    if (!this.validateElement()) return;
+    if (!this.validateElement() || this.swiper) return;
 
     try {
-      // Initialize Swiper on the correct element
       this.swiper = new Swiper(this.swiperContainer, this.options.swiperOptions);
+      console.log('CardsSection Swiper initialized for mobile');
 
-      console.log('Testimonials component initialized successfully');
-
-      // Emit event for other components
-      EventBus.emit('testimonials:initialized', {
+      EventBus.emit('cardsSection:initialized', {
         component: this,
         swiper: this.swiper,
       });
     } catch (error) {
       console.error('Failed to initialize Swiper:', error);
-      this.fallbackToBasicCarousel();
+    }
+  }
+
+  destroySwiper() {
+    if (this.swiper) {
+      this.swiper.destroy(true, true);
+      this.swiper = null;
+      console.log('CardsSection Swiper destroyed for desktop');
     }
   }
 
   bindEvents() {
-    // Listen for resize events to update Swiper
+    // Listen for resize events
     EventBus.on('viewport:resize', this.handleResize.bind(this));
 
-    // Handle visibility changes to pause/resume autoplay
+    // Add window resize listener
+    window.addEventListener('resize', this.debounce(this.handleResize.bind(this), 250));
+
+    // Handle visibility changes only if swiper exists
     document.addEventListener('visibilitychange', () => {
       if (this.swiper && this.swiper.autoplay) {
         if (document.hidden) {
@@ -104,56 +127,55 @@ export class CardsSection extends Component {
         }
       }
     });
+  }
 
-    // Custom navigation if needed
-    const prevBtn = this.element.querySelector('.testimonials__prev');
-    const nextBtn = this.element.querySelector('.testimonials__next');
-
-    if (prevBtn && this.swiper) {
-      prevBtn.addEventListener('click', () => {
-        this.swiper.slidePrev();
-        // Restart autoplay after manual interaction if needed
-        if (this.swiper.autoplay) {
-          this.swiper.autoplay.start();
-        }
-      });
-    }
-
-    if (nextBtn && this.swiper) {
-      nextBtn.addEventListener('click', () => {
-        this.swiper.slideNext();
-        // Restart autoplay after manual interaction if needed
-        if (this.swiper.autoplay) {
-          this.swiper.autoplay.start();
-        }
-      });
-    }
+  setupIntersectionObserver() {
+    const cardContainer = this.element.querySelector('.desktop-cards');
+    const cardColumns = this.element.querySelectorAll('[data-card-column]');
+    if (!cardColumns) return;
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: cardContainer,
+        start: 'top 95%',
+        end: 'top 50%',
+        once: true,
+      },
+    });
+    tl.to(cardColumns, {
+      duration: 1,
+      autoAlpha: 1,
+      y: 0,
+      ease: 'easeOut',
+      onComplete: () => {
+        console.log('first animation complete');
+      },
+    });
   }
 
   handleResize() {
+    // Check screen size and init/destroy swiper accordingly
+    this.checkScreenSize();
+
     if (this.swiper) {
-      // Update Swiper on resize
       this.swiper.update();
     }
   }
 
-  fallbackToBasicCarousel() {
-    // Provide a basic carousel fallback if Swiper fails
-    console.log('Using fallback carousel implementation');
-    // Implement basic carousel logic here
-  }
-
-  updateLayout() {
-    if (this.swiper) {
-      this.swiper.update();
-    }
+  debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
   }
 
   destroy() {
-    if (this.swiper) {
-      this.swiper.destroy(true, true);
-      this.swiper = null;
-    }
+    this.destroySwiper();
+    window.removeEventListener('resize', this.handleResize);
     EventBus.off('viewport:resize', this.handleResize);
     super.destroy();
   }

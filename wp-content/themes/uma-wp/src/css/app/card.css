@@ -3,7 +3,7 @@
 
   .swiper {
     overflow: visible;
-    @apply container-wide opacity-0;
+    @apply container-wide opacity-0 lg:hidden;
     &.swiper-initialized {
       @apply opacity-100;
     }
