@@ -91,14 +91,20 @@ class BlockOverrides {
         $inner_blocks = $block['innerBlocks'] ?? [];
         foreach ($inner_blocks as $inner_block) {
             if ($inner_block['blockName'] === 'uma-blocks/testimonial') {
-                  $content = '';
-                  if (!empty($inner_block['innerBlocks'])) {
-                      foreach ($inner_block['innerBlocks'] as $nested_block) {
-                          $content .= render_block($nested_block);
-                      }
-                  }
+                $author = $inner_block['attrs']['author'];
+                if ($author['image']['id'] ?? false) {
+                    $author['image'] = Timber::get_image($author['image']['id']);
+                } else {
+                    $author['image'] = null;
+                }
+                $content = '';
+                if (!empty($inner_block['innerBlocks'])) {
+                    foreach ($inner_block['innerBlocks'] as $nested_block) {
+                        $content .= render_block($nested_block);
+                    }
+                }
                 $testimonials[] = [
-                    'slide_author' => $inner_block['attrs']['author'] ?? '',
+                    'slide_author' => $author,
                     'content' => $content,
                 ];
             }
