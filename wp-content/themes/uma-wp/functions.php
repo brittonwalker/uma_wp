@@ -13,6 +13,8 @@ use Tktk\Enqueue;
 use Tktk\TimberContext;
 use Tktk\CustomRoutes;
 use Tktk\StyleguideRoutes;
+use Tktk\BlockOverrides;
+
 
 // Load Composer dependencies
 if ( file_exists(__DIR__ . '/vendor/autoload.php') ) {
@@ -33,6 +35,7 @@ new Enqueue( 'tktk' );
 new TimberContext();
 new CustomRoutes();
 new StyleguideRoutes();
+new BlockOverrides();
 
 // add_action('wp_footer', function() {
 //     if (current_user_can('manage_options')) {
