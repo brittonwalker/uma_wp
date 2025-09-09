@@ -1,0 +1,70 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "uma-blocks/hero-lander",
+	"version": "0.1.0",
+	"title": "Hero Lander",
+	"category": "widgets",
+	"icon": "smiley",
+	"description": "Hero section with image, title, subtitle, text, and trial form.",
+	"example": {},
+	"attributes": {
+		"imageUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"title": {
+			"type": "string",
+			"default": "Hero Title"
+		},
+		"subtitle": {
+			"type": "string",
+			"default": "Hero Subtitle"
+		},
+		"text": {
+			"type": "string",
+			"default": "This is a hero section with an image, title, subtitle, and text."
+		},
+		"bgImage": {
+			"type": "object",
+			"properties": {
+				"url": {
+					"type": "string",
+					"default": ""
+				},
+				"id": {
+					"type": "number",
+					"default": 0
+				}
+			},
+			"default": {
+				"url": "",
+				"id": 0
+			}
+		},
+		"heroImage": {
+			"type": "object",
+			"properties": {
+				"url": {
+					"type": "string",
+					"default": ""
+				},
+				"id": {
+					"type": "number",
+					"default": 0
+				}
+			},
+			"default": {
+				"url": "",
+				"id": 0
+			}
+		}
+	},
+	"supports": {
+		"html": false
+	},
+	"textdomain": "uma-blocks",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"viewScript": "file:./view.js"
+}

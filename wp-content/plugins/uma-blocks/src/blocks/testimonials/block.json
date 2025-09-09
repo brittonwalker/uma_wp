@@ -1,0 +1,14 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "uma-blocks/testimonials",
+	"version": "0.1.0",
+	"title": "Testimonials",
+	"category": "design",
+	"description": "This is an example block generated from the create-block command.",
+	"textdomain": "testimonials",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}

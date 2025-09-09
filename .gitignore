@@ -30,6 +30,7 @@ wp-content/plugins/*
 # Themes (exclude if you want to track them)
 wp-content/themes/*
 !wp-content/themes/uma-wp/
+
 # Uncomment below to track your custom theme
 # !/wp-content/themes/your-custom-theme/
 

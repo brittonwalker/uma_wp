@@ -42,6 +42,16 @@ jobs:
           cd wp-content/themes/uma-wp
           npm run build
 
+      - name: Install npm dependencies (plugin)
+        run: |
+          cd wp-content/plugins/uma-blocks
+          npm ci
+
+      - name: Build assets (plugin)
+        run: |
+          cd wp-content/plugins/uma-blocks
+          npm run build
+
       - name: Deploy to Namecheap via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:

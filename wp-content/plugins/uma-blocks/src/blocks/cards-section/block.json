@@ -1,0 +1,20 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "uma-blocks/cards-section",
+	"version": "0.1.0",
+	"title": "Cards Section",
+	"category": "text",
+	"description": "This is an example block generated from the create-block command.",
+	"textdomain": "cards-section",
+	"attributes": {
+		"title": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}

@@ -1,0 +1,26 @@
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+	.container {
+		--max-width: calc(100% - 32px);
+		@apply mx-auto w-[1172px] max-w-[var(--max-width)];
+	}
+	.container-wide {
+		--max-width: calc(100% - 32px);
+		@apply mx-auto w-[1380px] max-w-[var(--max-width)];
+	}
+}
+
+@layer components {
+	.form-field {
+		@apply w-[300px] max-w-full flex-grow-0;
+		label {
+			@apply block font-medium text-sm mb-2;
+		}
+		input {
+			@apply bg-white rounded-lg border-black border-solid py-2 px-3 text-black text-lg w-full appearance-none block;
+			box-sizing: border-box;
+		}
+	}
+}

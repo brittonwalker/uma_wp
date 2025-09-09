@@ -1,0 +1,41 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "uma-blocks/cards-section-card",
+	"version": "0.1.0",
+	"title": "Card",
+	"category": "text",
+	"description": "This is an example block generated from the create-block command.",
+	"textdomain": "cards-section-card",
+	"attributes": {
+		"bgImage": {
+			"type": "object",
+			"properties": {
+				"url": {
+					"type": "string",
+					"default": ""
+				},
+				"id": {
+					"type": "number",
+					"default": 0
+				}
+			},
+			"default": {
+				"url": "",
+				"id": 0
+			}
+		},
+		"title": {
+			"type": "string",
+			"default": ""
+		},
+		"content": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}
