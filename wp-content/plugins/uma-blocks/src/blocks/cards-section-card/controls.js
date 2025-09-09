@@ -19,7 +19,6 @@ import { link as linkIcon } from '@wordpress/icons';
 
 export default function Controls({ attributes, setAttributes }) {
 	const { bgImage, link } = attributes;
-	console.log(link);
 	const [showLinkPopover, setShowLinkPopover] = useState(false);
 
 	return (

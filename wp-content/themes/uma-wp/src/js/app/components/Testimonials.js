@@ -11,8 +11,8 @@ import 'swiper/css/pagination';
 /* 
   Internal Dependencies
  */
-import { Component } from '../core/Component.js';
-import EventBus from '../core/EventBus.ts';
+import { Component } from '../core/Component';
+import EventBus from '../core/EventBus';
 
 export class Testimonials extends Component {
   get defaultOptions() {
@@ -64,8 +64,6 @@ export class Testimonials extends Component {
     try {
       // Initialize Swiper on the correct element
       this.swiper = new Swiper(this.swiperContainer, this.options.swiperOptions);
-
-      console.log('Testimonials component initialized successfully');
 
       // Emit event for other components
       EventBus.emit('testimonials:initialized', {

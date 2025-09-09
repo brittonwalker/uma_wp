@@ -1,7 +1,7 @@
 import { gsap } from 'gsap';
 
-import { Component } from '../core/Component.js';
-import EventBus from '../core/EventBus.ts';
+import { Component } from '../core/Component';
+import EventBus from '../core/EventBus';
 
 export class HeroSection extends Component {
   get defaultOptions() {

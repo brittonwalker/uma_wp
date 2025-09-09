@@ -14,8 +14,8 @@ gsap.registerPlugin(ScrollTrigger);
 /* 
   Internal Dependencies
  */
-import { Component } from '../core/Component.js';
-import EventBus from '../core/EventBus.ts';
+import { Component } from '../core/Component';
+import EventBus from '../core/EventBus';
 
 export class CardsSection extends Component {
   get defaultOptions() {
@@ -77,8 +77,6 @@ export class CardsSection extends Component {
   }
 
   checkScreenSize() {
-    console.log('HEY NOW HEY NOW', window.innerWidth);
-
     if (window.innerWidth < 640) {
       this.initSwiper();
     } else {
@@ -91,7 +89,6 @@ export class CardsSection extends Component {
 
     try {
       this.swiper = new Swiper(this.swiperContainer, this.options.swiperOptions);
-      console.log('CardsSection Swiper initialized for mobile');
 
       EventBus.emit('cardsSection:initialized', {
         component: this,

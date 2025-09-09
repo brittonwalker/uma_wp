@@ -1,9 +1,9 @@
-import EventBus from './core/EventBus.ts';
-import { Testimonials } from './components/Testimonials.js';
-import { CardsSection } from './components/CardsSection.js';
-import { PerformanceManager } from './utils/Performance.js';
-import { HeroSection } from './components/HeroSection.js';
-import ScrollManager from './core/ScrollManager.js';
+import EventBus from './core/EventBus';
+import { Testimonials } from './components/Testimonials';
+import { CardsSection } from './components/CardsSection';
+import { PerformanceManager } from './utils/Performance';
+import { HeroSection } from './components/HeroSection';
+import ScrollManager from './core/ScrollManager';
 
 // import ApiService from './services/ApiService.js';
 
@@ -62,9 +62,7 @@ class App {
     };
 
     Object.entries(componentMap).forEach(([name, ComponentClass]) => {
-      console.log(`Initializing component: ${name}`);
       const elements = document.querySelectorAll(`[data-component="${name}"]`);
-      console.log('elements', elements);
       elements.forEach((element) => {
         const options = this.parseComponentOptions(element);
         const instance = new ComponentClass(element, options);
