@@ -1,4 +1,4 @@
-{% set animation_array = [100, 50, 150] %}
+{% set animation_array = [200, 150, 350] %}
 
 <div class="cards" data-component="cards-section">
   <div class="cards__header">
@@ -8,16 +8,23 @@
   </div>
     <div class="desktop-cards hidden lg:block">
     <div class="cards-container container-wide grid grid-cols-1 lg:grid-cols-3 gap-5">
-      {% for column in 0..2 %}
-        <div class="card-column-{{ column + 1 }} flex flex-col gap-5" style="transform: translateY({{ animation_array[column] }}px)" data-card-column>
-          {# Loop through cards and display every third card starting from the current column index #}
-          {% for i in range(column, cards|length - 1, 3) %}
-            {% if cards[i] is defined %}
-              {% include 'components/cards-section/card.twig' with { card: cards[i] } %}
-            {% endif %}
-          {% endfor %}
-        </div>
-      {% endfor %}
+      {% set cards_length = cards|length %}
+      {% if cards_length < 3 %}
+        {% for card in cards %}
+          {% include 'components/cards-section/card.twig' with { card: card } %}
+        {% endfor %}
+      {% else %}
+        {% for column in 0..2 %}
+          <div class="card-column-{{ column + 1 }} flex flex-col gap-5" style="transform: translateY({{ animation_array[column] }}px)" data-card-column>
+            {% set start_index = column %}
+            {% for i in start_index..cards_length-1 %}
+              {% if (i - column) % 3 == 0 and cards[i] is defined %}
+                {% include 'components/cards-section/card.twig' with { card: cards[i] } %}
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endfor %}
+      {% endif %}
     </div>
   </div>
   <div class="swiper">

@@ -137,7 +137,7 @@ export class CardsSection extends Component {
       scrollTrigger: {
         trigger: cardContainer,
         start: 'top 95%',
-        end: 'top 50%',
+        end: 'top 40%',
         scrub: true,
       },
     });
