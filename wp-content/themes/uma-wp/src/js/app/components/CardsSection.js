@@ -139,7 +139,6 @@ export class CardsSection extends Component {
         start: 'top 120%',
         end: 'top 30%',
         scrub: true,
-        markers: true,
       },
     });
     tl.to(cardColumns, {
