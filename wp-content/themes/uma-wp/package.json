@@ -59,7 +59,7 @@
     "typescript": "^5.9.2"
   },
   "scripts": {
-    "build": "wp-scripts build --config webpack.prod.js",
+    "build": "wp-scripts build src/index.js",
     "check-engines": "wp-scripts check-engines",
     "check-licenses": "wp-scripts check-licenses",
     "dev": "npm run watch",

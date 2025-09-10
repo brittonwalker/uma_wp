@@ -20,7 +20,6 @@ class App {
       console.log('Looks like we are in development mode!');
     }
 
-    // Wait for DOM to be ready
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', () => this.bootstrap());
     } else {
