@@ -28,9 +28,7 @@ export class HeroSection extends Component<HeroSectionOptions, HeroSectionState>
     this.setupIntersectionObserver();
   }
 
-  render(): void {
-    console.log('RENDERING');
-  }
+  render(): void {}
 
   bindEvents(): void {
     const ctaButton = this.element.querySelector('.hero__cta') as HTMLElement;

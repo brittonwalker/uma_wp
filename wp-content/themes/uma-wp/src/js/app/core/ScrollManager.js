@@ -33,8 +33,6 @@ class ScrollManager {
 
     // Emit initialization event
     EventBus.emit('scroll:initialized', { lenis: this.lenis });
-
-    console.log('Lenis smooth scroll initialized');
   }
 
   bindEvents() {

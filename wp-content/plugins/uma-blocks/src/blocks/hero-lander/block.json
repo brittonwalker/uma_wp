@@ -65,6 +65,5 @@
 	},
 	"textdomain": "uma-blocks",
 	"editorScript": "file:./index.js",
-	"editorStyle": "file:./index.css",
-	"viewScript": "file:./view.js"
+	"editorStyle": "file:./index.css"
 }
