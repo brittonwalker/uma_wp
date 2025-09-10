@@ -1,5 +1,5 @@
 {% macro render_card_content(card) %}
-  <div class="card" style="background-image: url('{{ card.bg_image }}');">
+  <div class="card" data-bg-image="{{ card.bg_image }}">
     <div class="card-info text-sm text-center text-balance">
       <h2 class="text-4xl font-heading font-bold mb-5">{{ card.title }}</h2>
       <p>{{ card.content }}</p>

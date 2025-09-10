@@ -159,9 +159,6 @@ export class CardsSection extends Component<CardsSectionOptions, CardsSectionSta
       autoAlpha: 1,
       y: 0,
       ease: 'easeOut',
-      onComplete: () => {
-        console.log('first animation complete');
-      },
     });
   }
 

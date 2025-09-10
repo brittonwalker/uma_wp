@@ -1,17 +1,20 @@
 import EventBus from './core/EventBus';
 import { Testimonials, CardsSection, HeroSection } from './components';
-import { PerformanceManager } from './utils/Performance';
+import { PerformanceManager, LazyBackgroundImages } from './utils';
 import ScrollManager from './core/ScrollManager';
 
 // import ApiService from './services/ApiService.js';
 
 type ComponentInstance = HeroSection | Testimonials | CardsSection;
+type UtilityInstance = LazyBackgroundImages;
 
 class App {
   components: Map<HTMLElement, ComponentInstance>;
+  utilities: Map<string, UtilityInstance>;
 
   constructor() {
     this.components = new Map();
+    this.utilities = new Map();
     this.init();
   }
 
@@ -30,6 +33,7 @@ class App {
   bootstrap() {
     ScrollManager.init();
     this.setupGlobalEvents();
+    this.initializeUtilities();
     this.initializeComponents();
     this.setupAnalytics();
     PerformanceManager.preloadCriticalResources();
@@ -50,6 +54,27 @@ class App {
 
     // Form submissions
     EventBus.on('form:submit', this.handleFormSubmit.bind(this));
+
+    // Listen for dynamic content updates (for AJAX-loaded content)
+    EventBus.on('content:updated', this.handleDynamicContent.bind(this));
+  }
+
+  initializeUtilities() {
+    // Initialize utility components that don't need specific DOM elements
+    const lazyBgImages = new LazyBackgroundImages({
+      selector: '[data-bg-image]',
+      rootMargin: '100px',
+      threshold: 0.1,
+      loadingClass: 'bg-loading',
+      loadedClass: 'bg-loaded',
+      errorClass: 'bg-error',
+    });
+
+    this.utilities.set('lazyBackgrounds', lazyBgImages);
+
+    // Listen for lazy loading events
+    document.addEventListener('lazyBgLoaded', this.handleLazyBgLoaded.bind(this));
+    document.addEventListener('lazyBgError', this.handleLazyBgError.bind(this));
   }
 
   initializeComponents() {
@@ -93,6 +118,48 @@ class App {
     });
   }
 
+  handleDynamicContent(data: { container?: HTMLElement } = {}): void {
+    // When new content is loaded via AJAX, reinitialize lazy backgrounds
+    const lazyBgImages = this.utilities.get('lazyBackgrounds') as LazyBackgroundImages;
+    if (lazyBgImages) {
+      const container = data.container || document;
+      const newElements = Array.from(
+        container.querySelectorAll('[data-bg-image][data-lazy="pending"]')
+      ) as HTMLElement[];
+
+      if (newElements.length > 0) {
+        lazyBgImages.addElements(newElements);
+        console.log(`🔄 Added ${newElements.length} new lazy background images`);
+      }
+    }
+  }
+
+  handleLazyBgLoaded(event: CustomEvent): void {
+    if (process.env.NODE_ENV !== 'production') {
+      console.log('✅ Background image loaded:', event.detail.url);
+    }
+
+    // Optional: Track for analytics
+    EventBus.emit('analytics:track', {
+      event: 'image_loaded',
+      category: 'performance',
+      label: 'lazy_background',
+      value: event.detail.url,
+    });
+  }
+
+  handleLazyBgError(event: CustomEvent): void {
+    console.error('❌ Background image failed:', event.detail.url);
+
+    // Optional: Track errors for analytics
+    EventBus.emit('analytics:track', {
+      event: 'image_error',
+      category: 'performance',
+      label: 'lazy_background_error',
+      value: event.detail.url,
+    });
+  }
+
   disableScroll(): void {
     ScrollManager.disable();
   }
@@ -118,6 +185,7 @@ class App {
     //     gtag('event', data.event, {
     //       event_category: data.category || 'engagement',
     //       event_label: data.label,
+    //       custom_parameter_1: data.value
     //     });
     //   }
     // });
@@ -126,7 +194,36 @@ class App {
   getScrollDirection() {
     // Implementation for scroll direction detection
   }
+
+  // Public method to manually refresh lazy images (useful for AJAX content)
+  refreshLazyImages(container?: HTMLElement): void {
+    this.handleDynamicContent({ container });
+  }
+
+  // Cleanup method for SPA-like behavior or HMR
+  destroy(): void {
+    // Clean up utilities
+    this.utilities.forEach((utility) => {
+      if (utility && typeof utility.destroy === 'function') {
+        utility.destroy();
+      }
+    });
+    this.utilities.clear();
+
+    // Clean up components
+    this.components.forEach((component) => {
+      if (component && typeof component.destroy === 'function') {
+        component.destroy();
+      }
+    });
+    this.components.clear();
+  }
 }
 
 // Initialize the application
-new App();
+const app = new App();
+
+// Export for global access (useful for debugging or external integrations)
+if (process.env.NODE_ENV !== 'production') {
+  (window as any).UmaApp = app;
+}

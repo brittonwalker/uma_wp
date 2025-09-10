@@ -1,5 +1,3 @@
-import { Testimonials } from './Testimonials';
-import { CardsSection } from './CardsSection';
-import { HeroSection } from './HeroSection';
-
-export { Testimonials, CardsSection, HeroSection };
+export { HeroSection } from './HeroSection';
+export { Testimonials } from './Testimonials';
+export { CardsSection } from './CardsSection';
