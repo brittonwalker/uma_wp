@@ -1,12 +1,12 @@
 import EventBus from './core/EventBus';
 import { Testimonials, CardsSection, HeroSection } from './components';
-import { PerformanceManager, LazyBackgroundImages } from './utils';
+import { PerformanceManager, LazyBackgroundImages, TextReveal, FadeUp } from './utils';
 import ScrollManager from './core/ScrollManager';
 
 // import ApiService from './services/ApiService.js';
 
 type ComponentInstance = HeroSection | Testimonials | CardsSection;
-type UtilityInstance = LazyBackgroundImages;
+type UtilityInstance = LazyBackgroundImages | TextReveal | FadeUp;
 
 class App {
   components: Map<HTMLElement, ComponentInstance>;
@@ -71,6 +71,28 @@ class App {
     });
 
     this.utilities.set('lazyBackgrounds', lazyBgImages);
+
+    const textReveal = new TextReveal({
+      selector: '[data-text-reveal]',
+      rootMargin: '50px',
+      threshold: 0.4,
+      loadingClass: 'text-loading',
+      loadedClass: 'text-loaded',
+      errorClass: 'text-error',
+    });
+
+    this.utilities.set('textReveal', textReveal);
+
+    // const fadeUp = new FadeUp({
+    //   selector: '[data-fade-up]',
+    //   rootMargin: '50px',
+    //   threshold: 0.4,
+    //   loadingClass: 'fade-loading',
+    //   loadedClass: 'fade-loaded',
+    //   errorClass: 'fade-error',
+    // });
+
+    // this.utilities.set('fadeUp', fadeUp);
 
     // Listen for lazy loading events
     document.addEventListener('lazyBgLoaded', this.handleLazyBgLoaded.bind(this));

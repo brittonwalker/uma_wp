@@ -38,3 +38,7 @@ form {
     @apply bg-white rounded-lg border-[#CCCCCC] py-2 px-3 text-black w-full lg:w-[300px] text-lg;
   }
 }
+
+.lines-child {
+  @apply opacity-0;
+}
