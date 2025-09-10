@@ -2,6 +2,7 @@
   External Dependencies
  */
 import Swiper from 'swiper';
+import { SwiperOptions } from 'swiper/types';
 import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/effect-fade';
@@ -14,15 +15,23 @@ import 'swiper/css/pagination';
 import { Component } from '../core/Component';
 import EventBus from '../core/EventBus';
 
-export class Testimonials extends Component {
-  get defaultOptions() {
+interface TestimonialsOptions {
+  swiperOptions: SwiperOptions;
+}
+
+interface TestimonialsState {}
+
+export class Testimonials extends Component<TestimonialsOptions, TestimonialsState> {
+  swiper: Swiper | null = null;
+  swiperEl: HTMLElement | null = null;
+
+  get defaultOptions(): Partial<TestimonialsOptions> {
     return {
-      animationDuration: 300,
-      lazyLoad: true,
       swiperOptions: {
         modules: [Navigation, Pagination],
         spaceBetween: 30,
         centeredSlides: true,
+        autoHeight: true,
         autoplay: {
           delay: 2500,
           disableOnInteraction: false,
@@ -35,22 +44,23 @@ export class Testimonials extends Component {
     };
   }
 
-  init() {
+  init(): void {
     super.init();
     this.validateElement();
     this.initSwiper();
   }
 
-  validateElement() {
+  validateElement(): boolean {
     if (!this.element) {
       console.error('Testimonials: No element provided');
       return false;
     }
 
-    // Find the actual swiper container within the component
-    this.swiperContainer = this.element.querySelector('.swiper');
+    if (!this.swiperEl) {
+      this.swiperEl = this.element.querySelector('.swiper') as HTMLElement | null;
+    }
 
-    if (!this.swiperContainer) {
+    if (!this.swiperEl) {
       console.error('Testimonials: No .swiper container found within element');
       return false;
     }
@@ -58,31 +68,29 @@ export class Testimonials extends Component {
     return true;
   }
 
-  initSwiper() {
+  initSwiper(): void {
     if (!this.validateElement()) return;
 
     try {
-      // Initialize Swiper on the correct element
-      this.swiper = new Swiper(this.swiperContainer, this.options.swiperOptions);
+      if (!this.swiperEl || this.swiper) return;
 
-      // Emit event for other components
+      this.swiper = new Swiper(this.swiperEl, this.options.swiperOptions);
+
       EventBus.emit('testimonials:initialized', {
         component: this,
         swiper: this.swiper,
       });
     } catch (error) {
       console.error('Failed to initialize Swiper:', error);
-      this.fallbackToBasicCarousel();
     }
   }
 
-  bindEvents() {
+  bindEvents(): void {
     // Listen for resize events to update Swiper
     EventBus.on('viewport:resize', this.handleResize.bind(this));
 
-    // Handle visibility changes to pause/resume autoplay
     document.addEventListener('visibilitychange', () => {
-      if (this.swiper && this.swiper.autoplay) {
+      if (this.swiper?.autoplay) {
         if (document.hidden) {
           this.swiper.autoplay.stop();
         } else {
@@ -90,52 +98,21 @@ export class Testimonials extends Component {
         }
       }
     });
-
-    // Custom navigation if needed
-    const prevBtn = this.element.querySelector('.testimonials__prev');
-    const nextBtn = this.element.querySelector('.testimonials__next');
-
-    if (prevBtn && this.swiper) {
-      prevBtn.addEventListener('click', () => {
-        this.swiper.slidePrev();
-        // Restart autoplay after manual interaction if needed
-        if (this.swiper.autoplay) {
-          this.swiper.autoplay.start();
-        }
-      });
-    }
-
-    if (nextBtn && this.swiper) {
-      nextBtn.addEventListener('click', () => {
-        this.swiper.slideNext();
-        // Restart autoplay after manual interaction if needed
-        if (this.swiper.autoplay) {
-          this.swiper.autoplay.start();
-        }
-      });
-    }
   }
 
-  handleResize() {
-    if (this.swiper) {
-      // Update Swiper on resize
-      this.swiper.update();
-    }
-  }
-
-  fallbackToBasicCarousel() {
-    // Provide a basic carousel fallback if Swiper fails
-    console.log('Using fallback carousel implementation');
-    // Implement basic carousel logic here
-  }
-
-  updateLayout() {
+  handleResize(): void {
     if (this.swiper) {
       this.swiper.update();
     }
   }
 
-  destroy() {
+  updateLayout(): void {
+    if (this.swiper) {
+      this.swiper.update();
+    }
+  }
+
+  destroy(): void {
     if (this.swiper) {
       this.swiper.destroy(true, true);
       this.swiper = null;
