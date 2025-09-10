@@ -1,5 +1,5 @@
-import { Testimonials } from '@components/Testimonials';
-import { CardsSection } from '@components/CardsSection';
-import { HeroSection } from '@components/HeroSection';
+import { Testimonials } from './Testimonials';
+import { CardsSection } from './CardsSection';
+import { HeroSection } from './HeroSection';
 
 export { Testimonials, CardsSection, HeroSection };
