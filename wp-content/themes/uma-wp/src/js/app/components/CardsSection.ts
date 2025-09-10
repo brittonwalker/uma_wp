@@ -3,7 +3,8 @@
  */
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Swiper from 'swiper';
+import { Swiper } from 'swiper';
+import { SwiperOptions } from 'swiper/types';
 import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -14,11 +15,25 @@ gsap.registerPlugin(ScrollTrigger);
 /* 
   Internal Dependencies
  */
-import { Component } from '../core/Component.js';
-import EventBus from '../core/EventBus.js';
+import { Component } from '../core/Component';
+import EventBus from '../core/EventBus';
 
-export class CardsSection extends Component {
-  get defaultOptions() {
+interface CardsSectionOptions {
+  animationDuration: number;
+  lazyLoad: boolean;
+  swiperOptions: SwiperOptions; // Could be more specific with Swiper types
+}
+
+interface CardsSectionState {
+  isSwiperActive: boolean;
+}
+
+export class CardsSection extends Component<CardsSectionOptions, CardsSectionState> {
+  swiper: Swiper | null = null;
+  swiperEl: HTMLElement | null = null;
+  private resizeHandler?: () => void;
+
+  get defaultOptions(): Partial<CardsSectionOptions> {
     return {
       animationDuration: 300,
       lazyLoad: true,
@@ -53,22 +68,19 @@ export class CardsSection extends Component {
 
   init() {
     super.init();
-    this.validateElement();
-    this.checkScreenSize();
     this.initSwiper();
     this.setupIntersectionObserver();
   }
 
-  validateElement() {
+  validateElement(): boolean {
     if (!this.element) {
       console.error('Testimonials: No element provided');
       return false;
     }
 
-    // Find the actual swiper container within the component
-    this.swiperContainer = this.element.querySelector('.swiper');
+    this.swiperEl = this.element.querySelector('.swiper') as HTMLElement | null;
 
-    if (!this.swiperContainer) {
+    if (!this.swiperEl) {
       console.error('Testimonials: No .swiper container found within element');
       return false;
     }
@@ -76,9 +88,7 @@ export class CardsSection extends Component {
     return true;
   }
 
-  checkScreenSize() {
-    console.log('HEY NOW HEY NOW', window.innerWidth);
-
+  checkScreenSize(): void {
     if (window.innerWidth < 640) {
       this.initSwiper();
     } else {
@@ -86,12 +96,13 @@ export class CardsSection extends Component {
     }
   }
 
-  initSwiper() {
-    if (!this.validateElement() || this.swiper) return;
+  initSwiper(): void {
+    this.swiperEl = this.element.querySelector('.swiper') as HTMLElement | null;
+
+    if (!this.swiperEl || this.swiper) return;
 
     try {
-      this.swiper = new Swiper(this.swiperContainer, this.options.swiperOptions);
-      console.log('CardsSection Swiper initialized for mobile');
+      this.swiper = new Swiper(this.swiperEl, this.options.swiperOptions);
 
       EventBus.emit('cardsSection:initialized', {
         component: this,
@@ -102,7 +113,7 @@ export class CardsSection extends Component {
     }
   }
 
-  destroySwiper() {
+  destroySwiper(): void {
     if (this.swiper) {
       this.swiper.destroy(true, true);
       this.swiper = null;
@@ -110,12 +121,11 @@ export class CardsSection extends Component {
     }
   }
 
-  bindEvents() {
-    // Listen for resize events
+  bindEvents(): void {
     EventBus.on('viewport:resize', this.handleResize.bind(this));
 
-    // Add window resize listener
-    window.addEventListener('resize', this.debounce(this.handleResize.bind(this), 250));
+    this.resizeHandler = this.debounce(this.handleResize.bind(this), 250);
+    window.addEventListener('resize', this.resizeHandler);
 
     // Handle visibility changes only if swiper exists
     document.addEventListener('visibilitychange', () => {
@@ -130,9 +140,11 @@ export class CardsSection extends Component {
   }
 
   setupIntersectionObserver() {
-    const cardContainer = this.element.querySelector('.desktop-cards');
+    const cardContainer = this.element.querySelector('.desktop-cards') as HTMLElement | null;
     const cardColumns = this.element.querySelectorAll('[data-card-column]');
-    if (!cardColumns) return;
+
+    if (!cardColumns || cardColumns.length === 0) return;
+
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: cardContainer,
@@ -141,6 +153,7 @@ export class CardsSection extends Component {
         scrub: true,
       },
     });
+
     tl.to(cardColumns, {
       duration: 1,
       autoAlpha: 1,
@@ -161,15 +174,22 @@ export class CardsSection extends Component {
     }
   }
 
-  debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
+  debounce<T extends (...args: any[]) => any>(
+    func: T,
+    wait: number
+  ): (...args: Parameters<T>) => void {
+    let timeout: number | undefined;
+
+    return (...args: Parameters<T>) => {
       const later = () => {
-        clearTimeout(timeout);
+        timeout = undefined;
         func(...args);
       };
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
+
+      if (timeout !== undefined) {
+        window.clearTimeout(timeout);
+      }
+      timeout = window.setTimeout(later, wait);
     };
   }
 

@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "esnext",
+    "jsx": "react",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./build",
+    "allowJs": true,
+    "baseUrl": "./src",
+    "declaration": true,
+    "declarationDir": "./types",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "paths": {
+      "@components/*": ["js/app/components/*"],
+      "@core/*": ["js/app/core/*"],
+      "@services/*": ["js/app/services/*"],
+      "@utils/*": ["js/app/utils/*"]
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.js"]
+}

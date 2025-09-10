@@ -1,5 +1,5 @@
 import Lenis from '@studio-freight/lenis';
-import EventBus from './EventBus.js';
+import EventBus from './EventBus';
 
 class ScrollManager {
   constructor() {

@@ -36,6 +36,9 @@
     "webpack-merge": "^6.0.1"
   },
   "devDependencies": {
+    "@types/gsap": "^1.20.2",
+    "@types/jest": "^30.0.0",
+    "@types/swiper": "^5.4.3",
     "@wordpress/eslint-plugin": "^22.5.0",
     "@wordpress/prettier-config": "^4.19.0",
     "@wordpress/scripts": "^30.12.0",
@@ -51,10 +54,12 @@
     "sass-loader": "^16.0.5",
     "style-loader": "^4.0.0",
     "stylelint": "^16.15.0",
-    "tailwindcss": "^4.1.13"
+    "tailwindcss": "^4.1.13",
+    "ts-loader": "^9.5.4",
+    "typescript": "^5.9.2"
   },
   "scripts": {
-    "build": "wp-scripts build src/index.js",
+    "build": "wp-scripts build --config webpack.prod.js",
     "check-engines": "wp-scripts check-engines",
     "check-licenses": "wp-scripts check-licenses",
     "dev": "npm run watch",
