@@ -1,13 +1,15 @@
 import EventBus from './core/EventBus';
-import { Testimonials } from './components/Testimonials';
-import { CardsSection } from './components/CardsSection';
+import { Testimonials, CardsSection, HeroSection } from './components';
 import { PerformanceManager } from './utils/Performance';
-import { HeroSection } from './components/HeroSection';
 import ScrollManager from './core/ScrollManager';
 
 // import ApiService from './services/ApiService.js';
 
+type ComponentInstance = HeroSection | Testimonials | CardsSection;
+
 class App {
+  components: Map<HTMLElement, ComponentInstance>;
+
   constructor() {
     this.components = new Map();
     this.init();
@@ -54,16 +56,16 @@ class App {
   initializeComponents() {
     // Auto-initialize components based on data attributes
     const componentMap = {
-      // 'hero-section': HeroSection,
       'landing-hero': HeroSection,
       testimonials: Testimonials,
       'cards-section': CardsSection,
-      // Add more components as needed
     };
 
     Object.entries(componentMap).forEach(([name, ComponentClass]) => {
-      const elements = document.querySelectorAll(`[data-component="${name}"]`);
-      elements.forEach((element) => {
+      const elements = Array.from(
+        document.querySelectorAll(`[data-component="${name}"]`)
+      ) as HTMLElement[];
+      elements.forEach((element: HTMLElement) => {
         const options = this.parseComponentOptions(element);
         const instance = new ComponentClass(element, options);
         this.components.set(element, instance);
@@ -71,19 +73,19 @@ class App {
     });
   }
 
-  parseComponentOptions(element) {
+  parseComponentOptions(element: HTMLElement) {
     const optionsAttr = element.dataset.componentOptions;
     return optionsAttr ? JSON.parse(optionsAttr) : {};
   }
 
-  handleScroll() {
+  handleScroll(): void {
     EventBus.emit('viewport:scroll', {
       scrollY: window.scrollY,
       scrollDirection: this.getScrollDirection(),
     });
   }
 
-  handleResize() {
+  handleResize(): void {
     ScrollManager.refresh();
 
     EventBus.emit('viewport:resize', {
@@ -92,21 +94,21 @@ class App {
     });
   }
 
-  disableScroll() {
+  disableScroll(): void {
     ScrollManager.disable();
   }
 
-  enableScroll() {
+  enableScroll(): void {
     ScrollManager.enable();
   }
 
-  scrollToElement(selector, options = {}) {
+  scrollToElement(selector: string, options = {}) {
     ScrollManager.scrollTo(selector, options);
   }
 
-  handleFormSubmit(data) {
+  handleFormSubmit(data: any) {
     // Handle form submissions with proper validation and AJAX
-    console.log('Form submitted:', data);
+    // console.log('Form submitted:', data);
   }
 
   setupAnalytics() {
